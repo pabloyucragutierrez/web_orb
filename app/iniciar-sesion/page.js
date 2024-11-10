@@ -25,7 +25,7 @@ export default function IniciarSesion() {
             type="text"
             id="codigo"
             placeholder=" "
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="mt-1 block w-full px-3 py-2 border h-[32px] rounded-lg bg-[#F5F5F7] text-gray-800 focus:outline-none"
           />
         </div>
 

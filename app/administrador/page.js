@@ -1,121 +1,118 @@
+"use client";
+import { useState } from "react";
 import BottomNavigation from "../components/BottomNavigation";
-import Image from "next/image";
 import HeadNavigation from "../components/HeaderNavigation";
+import Todos from "../components/modals/Todos";
+import Cards from "../components/Cards";
+import Editar from "../components/modals/Editar";
+import Perfil from "../components/Perfil";
 
 export default function Administrador() {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [isPerfilOpen, setPerfilOpen] = useState(false);
+  const [modalContent, setModalContent] = useState({ items: [], textHead: "" });
+  const [selectedItem, setSelectedItem] = useState(null);
+
   const routes = [
-    { path: "/roles", icon: "/icon_sidebar.png", label: "Roles" },
-    {
-      path: "/supervisores",
-      icon: "/lets-icons_user-fill.png",
-      label: "Supervisores",
-    },
+    { path: "#", icon: "/icon_sidebar.png", label: "Roles" },
+    { path: "#", icon: "/lets-icons_user-fill.png", label: "Supervisores" },
   ];
 
-  return (
-    <div className="flex w-full flex-col items-center overflow-auto justify-center min-h-screen bg-[#e0dfdf] ">
-      <div className="content__main bg-[#F5F5F7] w-full md:w-auto min-h-screen">
-        <HeadNavigation texto="Roles" />
-        <br></br>
-        <br></br>
-        <div className="content__admin mt-3 overflow-auto bg-[#F5F5F7] pt-3 w-full md:w-[25rem]">
-          <div className="bg-white w-[90%] m-auto p-4 rounded-lg mb-5 shadow">
-            <div className="flex justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-800">
-                Gerentes/directores
-              </h2>
-              <a href="#" className="text-sm text-gray-400">
-                Ver todo
-              </a>{" "}
-            </div>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                <img
-                  src="/mdi_person-tie.png"
-                  alt="Icon"
-                  className="bg-[#EBECEF] rounded-full w-10 h-10 p-2"
-                />
-                <div>
-                  <p className="text-sm text-gray-500">
-                    Gerente de Recursos Humanos
-                  </p>
-                  <p className="font-medium text-gray-800">Daniel Roldán</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                <img
-                  src="/arcticons_worldcoin.png"
-                  alt="Icon"
-                  className="bg-[#EBECEF] rounded-full w-10 h-10 p-2"
-                />
-                <div>
-                  <p className="text-sm text-gray-500">
-                    Director Financiero (CFO)
-                  </p>
-                  <p className="font-medium text-gray-800">
-                    José Eduardo De La Guardia
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                <img
-                  src="/majesticons_shield.png"
-                  alt="Icon"
-                  className="bg-[#EBECEF] rounded-full w-10 h-10 p-2"
-                />
-                <div>
-                  <p className="text-sm text-gray-500">
-                    Director de Expansiones
-                  </p>
-                  <p className="font-medium text-gray-800">Giuseppe Capurro</p>
-                </div>
-              </div>
-            </div>
-          </div>
+  const gerentes = [
+    { icon: "/mdi_person-tie.png", cargo: "Gerente de Recursos Humanos", nombre: "Daniel Roldán" },
+    { icon: "/arcticons_worldcoin.png", cargo: "Director Financiero (CFO)", nombre: "José Eduardo De La Guardia" },
+    { icon: "/majesticons_shield.png", cargo: "Director de Expansiones", nombre: "Giuseppe Capurro" },
+  ];
 
-          <div className="bg-white w-[90%] m-auto p-4 rounded-lg mb-5 shadow">
-            <div className="flex justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-800">
-                Supervisores
-              </h2>
-              <a href="#" className="text-sm text-gray-400">
-                Ver todo
-              </a>{" "}
-            </div>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                <img
-                  src="/mdi_person-tie.png"
-                  alt="Icon"
-                  className="bg-[#EBECEF] rounded-full w-10 h-10 p-2"
-                />
-                <div>
-                  <p className="text-sm text-gray-500">Orb Point 101</p>
-                  <p className="font-medium text-gray-800">
-                    Anthony Williams Guanilo Castro
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                <img
-                  src="/mdi_person-tie.png"
-                  alt="Icon"
-                  className="bg-[#EBECEF] rounded-full w-10 h-10 p-2"
-                />
-                <div>
-                  <p className="text-sm text-gray-500">Orb Point 201</p>
-                  <p className="font-medium text-gray-800">
-                    Javier Alejandro Téllez Gómez
-                  </p>
-                </div>
-              </div>
-            </div>
+  const supervisores = [
+    { icon: "/mdi_person-tie.png", cargo: "Orb Point 101", nombre: "Anthony Williams Guanilo Castro" },
+    { icon: "/mdi_person-tie.png", cargo: "Orb Point 201", nombre: "Javier Alejandro Téllez Gómez" },
+  ];
+
+  const itemsGerentes = [
+    { name: "Daniel Roldán", title: "Gerente de Recursos Humanos", code: "PASFCVXDS" },
+    { name: "José Eduardo De La Guardia", title: "Director Financiero (CFO)", code: "AZ8U9H5U" },
+    { name: "Giuseppe Capurro", title: "Director de Expansiones", code: "AZ8U9H5U" },
+  ];
+
+  const itemsSupervisores = [
+    { name: "Anthony Williams Guanilo Castro", title: "Orb Point 101", code: "AZ8U9H5U" },
+    { name: "Javier Alejandro Téllez Gómez", title: "Orb Point 201", code: "AZ8U9H5U" },
+  ];
+
+  const openModal = (items, textHead) => {
+    setModalContent({ items, textHead });
+    setModalOpen(true);
+  };
+
+  const openEditModal = (item) => {
+    setSelectedItem(item);
+    setModalOpen(false);
+    setEditModalOpen(true);
+  };
+
+  const openPerfil = () => {
+    setPerfilOpen(true);
+    setModalOpen(false);
+    setEditModalOpen(false);
+  };
+
+  const closePerfil = () => {
+    setPerfilOpen(false);
+    setModalOpen(false);
+    setEditModalOpen(false);
+  };
+
+  return (
+    <div className="flex w-full flex-col items-center overflow-auto justify-center min-h-screen bg-[#e0dfdf]">
+      {!isModalOpen && !isEditModalOpen && !isPerfilOpen && (
+        <div className="bg-[#F5F5F7] w-full md:w-[25rem] min-h-screen">
+          <HeadNavigation texto="Roles" />
+          <br />
+          <br />
+          <div className="mt-3 overflow-auto bg-[#F5F5F7] pt-3 w-full md:w-[25rem]">
+            <Cards
+              title="Gerentes/directores"
+              onVerTodoClick={() => openModal(itemsGerentes, "Gerentes/directores")}
+              directores={gerentes}
+            />
+            <Cards
+              title="Supervisores"
+              onVerTodoClick={() => openModal(itemsSupervisores, "Supervisores")}
+              directores={supervisores}
+            />
           </div>
+          <br />
+          <br />
+          <BottomNavigation
+            routes={routes}
+            onSupervisoresClick={openPerfil}
+            onInicioClick={closePerfil}  
+          />
         </div>
-        <br></br>
-        <br></br>
-        <BottomNavigation routes={routes} />
-      </div>
+      )}
+
+      {isModalOpen && (
+        <Todos
+          closeModal={() => setModalOpen(false)}
+          items={modalContent.items}
+          textHead={modalContent.textHead}
+          onItemClick={openEditModal}
+        />
+      )}
+
+      {isEditModalOpen && selectedItem && (
+        <Editar
+          closeModalEdit={() => setEditModalOpen(false)}
+          textHeadEdit={selectedItem.title.includes("Gerente") ? "Editar Gerente" : "Editar Supervisor"}
+          selectedItem={selectedItem}
+        />
+      )}
+
+      {isPerfilOpen && (
+        <Perfil onInicioClick={closePerfil} />  
+      )}
     </div>
   );
 }
