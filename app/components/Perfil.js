@@ -1,14 +1,12 @@
+// Perfil.js
 import { useState } from "react";
 import HeadNavigation from "./HeaderNavigation";
 import BottomNavigation from "./BottomNavigation";
 import EditarPerfil from "./EditarPerfil";
 
-const routes = [
-  { path: "#", icon: "/icon_sidebar.png", label: "Roles" },
-  { path: "#", icon: "/lets-icons_user-fill.png", label: "Supervisores" },
-];
 
-export default function Perfil({ onInicioClick }) {
+
+export default function Perfil({ activePage, onInicioClick, bottonIcons }) { // Recibimos activePage como prop
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEditClick = () => {
@@ -66,7 +64,7 @@ export default function Perfil({ onInicioClick }) {
           </div>
           <br />
           <br />
-          <BottomNavigation routes={routes} onInicioClick={onInicioClick} />
+          <BottomNavigation routes={bottonIcons} activePage={activePage} onInicioClick={onInicioClick} />
         </div>
       )}
     </div>

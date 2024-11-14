@@ -1,3 +1,4 @@
+// Administrador.js
 "use client";
 import { useState } from "react";
 import BottomNavigation from "../components/BottomNavigation";
@@ -13,12 +14,13 @@ export default function Administrador() {
   const [isPerfilOpen, setPerfilOpen] = useState(false);
   const [modalContent, setModalContent] = useState({ items: [], textHead: "" });
   const [selectedItem, setSelectedItem] = useState(null);
+  const [activePage, setActivePage] = useState("Administrador"); // Estado para la página activa
 
   const routes = [
     { path: "#", icon: "/icon_sidebar.png", label: "Roles" },
     { path: "#", icon: "/lets-icons_user-fill.png", label: "Supervisores" },
   ];
-
+    
   const gerentes = [
     { icon: "/mdi_person-tie.png", cargo: "Gerente de Recursos Humanos", nombre: "Daniel Roldán" },
     { icon: "/arcticons_worldcoin.png", cargo: "Director Financiero (CFO)", nombre: "José Eduardo De La Guardia" },
@@ -56,12 +58,14 @@ export default function Administrador() {
     setPerfilOpen(true);
     setModalOpen(false);
     setEditModalOpen(false);
+    setActivePage("Perfil"); 
   };
 
   const closePerfil = () => {
     setPerfilOpen(false);
     setModalOpen(false);
     setEditModalOpen(false);
+    setActivePage("Administrador");
   };
 
   return (
@@ -87,6 +91,7 @@ export default function Administrador() {
           <br />
           <BottomNavigation
             routes={routes}
+            activePage={activePage} 
             onSupervisoresClick={openPerfil}
             onInicioClick={closePerfil}  
           />
@@ -111,7 +116,7 @@ export default function Administrador() {
       )}
 
       {isPerfilOpen && (
-        <Perfil onInicioClick={closePerfil} />  
+        <Perfil activePage={activePage} onInicioClick={closePerfil} bottonIcons={routes}/>  
       )}
     </div>
   );

@@ -8,7 +8,7 @@ const Cards = ({ title, onVerTodoClick, directores }) => {
         <a
           href="#"
           className="text-sm text-[#657080]"
-          onClick={onVerTodoClick} // Abre el modal al hacer clic
+          onClick={onVerTodoClick} 
         >
           Ver todo
         </a>
