@@ -68,9 +68,22 @@ export default function GerenteDeRrhh() {
     // Otros elementos...
   ];
 
+  const roles = [
+    { name: "Elena Sofía Marquardt Pérez", role: "Supervisor" },
+    { name: "Elena Sofía Marquardt Pérez", role: "Operador" },
+    { name: "Elena Sofía Marquardt Pérez", role: "Operador" },
+    { name: "Elena Sofía Marquardt Pérez", role: "Promotor" },
+    { name: "Elena Sofía Marquardt Pérez", role: "Seguridad" },
+  ];
+
   // Función para abrir las notificaciones
   const openModal = (items) => {
     setModalContent({ items });
+    setModalOpen(true);
+  };
+
+  const openModal2 = (items, textHead) => {
+    setModalContent({ items, textHead });
     setModalOpen(true);
   };
 
@@ -81,7 +94,7 @@ export default function GerenteDeRrhh() {
   };
 
   const openPerfil = () => {
-    setPerfilOpen2(true);
+    setPerfilOpen2(true)
     setModalOpen(false);
     setEditModalOpen(false);
   };
@@ -183,6 +196,7 @@ export default function GerenteDeRrhh() {
           location={selectedLocation}
           textHead="Galería Comercial La Familia"
           openModal={setTodosModal}
+          title="Personal"
         />
       )}
 
@@ -191,6 +205,9 @@ export default function GerenteDeRrhh() {
           openAgregar={setAgregarPerfil}
           closeModal={() => setTodosModal(false)}
           openEp={setEditarPersonal}
+          itemsRoles={roles}
+          titleModal="Personal"
+          iconMore="/typcn_plus.png"
         />
       )}
       {agregarPersonal && (

@@ -5,6 +5,7 @@ export default function BottomNavigation({
   routes,
   onSupervisoresClick,
   onInicioClick,
+  onInicioWindow,
   activePage,
 }) {
   return (
@@ -21,7 +22,9 @@ export default function BottomNavigation({
             } else if (route.icon === "/icon_sidebar.png") {
               onInicioClick();
             } else if (route.icon === "/fluent_location-16-filled.png") {
-              onInicioClick()
+              onInicioClick();
+            } else if (route.icon === "/material-symbols_window.png") {
+              onInicioWindow();
             }
           }}
         >

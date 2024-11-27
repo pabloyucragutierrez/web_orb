@@ -4,9 +4,13 @@ import HeadNavigation from "./HeaderNavigation";
 import BottomNavigation from "./BottomNavigation";
 import EditarPerfil from "./EditarPerfil";
 
-
-
-export default function Perfil({ activePage, onInicioClick, bottonIcons }) { // Recibimos activePage como prop
+export default function Perfil({
+  activePage,
+  onInicioClick,
+  onInicioWindow,
+  bottonIcons,
+  openPerfil
+}) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEditClick = () => {
@@ -64,7 +68,12 @@ export default function Perfil({ activePage, onInicioClick, bottonIcons }) { // 
           </div>
           <br />
           <br />
-          <BottomNavigation routes={bottonIcons} activePage={activePage} onInicioClick={onInicioClick} />
+          <BottomNavigation
+            routes={bottonIcons}
+            activePage={activePage}
+            onInicioClick={onInicioClick}
+            onInicioWindow={onInicioWindow}
+          />
         </div>
       )}
     </div>

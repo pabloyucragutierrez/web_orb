@@ -287,7 +287,12 @@ export default function AgregarPersonal({ closeModal }) {
                       Rol
                     </label>
                     <div className="flex items-center w-full border border-[#EBECEF] rounded-md">
-                      <input
+                      <select className="w-full py-[12px] px-[20px] text-gray-800 bg-transparent focus:outline-none">
+                        <option>prueba</option>
+                        <option>prueba</option>
+                        <option>prueba</option>
+                      </select>
+                      {/* <input
                         type="text"
                         value={rol}
                         onChange={(e) => setRol(e.target.value)}
@@ -299,7 +304,7 @@ export default function AgregarPersonal({ closeModal }) {
                         alt="arrow"
                         width={16}
                         height={16}
-                      />
+                      /> */}
                     </div>
                   </div>
                   {/* Salario */}

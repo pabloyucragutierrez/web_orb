@@ -78,7 +78,7 @@ export default function Administrador() {
           <div className="mt-3 overflow-auto bg-[#F5F5F7] pt-3 w-full md:w-[25rem]">
             <Cards
               title="Gerentes/directores"
-              onVerTodoClick={() => openModal(itemsGerentes, "Gerentes/directores")}
+              onVerTodoClick={() => openModal(itemsGerentes, "Gerentes/directoresass")}
               directores={gerentes}
             />
             <Cards
